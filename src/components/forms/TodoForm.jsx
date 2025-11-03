@@ -14,7 +14,7 @@ const TodoForm = () => {
     let data = {
       id: Date.now(),
       taskName: task,
-      isCompleted: true,
+      isCompleted: false,
       createdAt: new Date().toDateString(),
     };
 

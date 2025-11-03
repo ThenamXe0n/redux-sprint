@@ -1,9 +1,36 @@
 import React from "react";
 import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTask, markTaskDone } from "../../redux/todo/todoSlice";
+import { BiCross } from "react-icons/bi";
 
 export default function TodoTable({ onEdit, onDelete, onComplete }) {
-    let todos = useSelector((state)=>state.todo.todoList)
+  let dispatch = useDispatch();
+  let todos = useSelector((state) => state.todo.todoList);
+
+  function handleDeleteTask(id) {
+    console.log("id is ", id);
+    let ask = confirm("are you sure to delete this task?");
+    console.log("ask", ask);
+    if (!ask) {
+      alert("delete aborted!");
+      return;
+    } else {
+      dispatch(deleteTask(id));
+    }
+  }
+  function handleTaskCompleted(id) {
+    console.log("id is ", id);
+    let ask = confirm("are you sure to mark as complete this task?");
+    console.log("ask", ask);
+    if (!ask) {
+      alert("aborted!");
+      return;
+    } else {
+      dispatch(markTaskDone(id));
+    }
+  }
+
   return (
     <div className="p-6 bg-[#d1e6ff] min-h-screen flex justify-center items-start">
       <div className="w-full max-w-4xl bg-white shadow-lg rounded-2xl overflow-hidden">
@@ -28,6 +55,7 @@ export default function TodoTable({ onEdit, onDelete, onComplete }) {
             {todos?.length > 0 ? (
               todos.map((todo, index) => (
                 <tr
+                  id={todo.id}
                   key={todo.id}
                   className={`border-t transition-all ${
                     todo.isCompleted
@@ -43,9 +71,7 @@ export default function TodoTable({ onEdit, onDelete, onComplete }) {
                   >
                     {todo.taskName}
                   </td>
-                  <td className="py-3 px-4 text-gray-600">
-                    {todo.createdAt}
-                  </td>
+                  <td className="py-3 px-4 text-gray-600">{todo.createdAt}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -68,21 +94,20 @@ export default function TodoTable({ onEdit, onDelete, onComplete }) {
                       <FaEdit />
                     </button>
                     <button
-                      onClick={() => onDelete(todo.id)}
+                      onClick={() => handleDeleteTask(todo.id)}
                       className="text-red-500 hover:text-red-700 transition"
                       title="Delete"
                     >
                       <FaTrash />
                     </button>
-                    {!todo.isCompleted && (
-                      <button
-                        onClick={() => onComplete(todo.id)}
-                        className="text-green-500 hover:text-green-700 transition"
-                        title="Mark Complete"
-                      >
-                        <FaCheck />
-                      </button>
-                    )}
+
+                    <button
+                      onClick={() => handleTaskCompleted(todo.id)}
+                      className="text-green-500 hover:text-green-700 transition"
+                      title="Mark Complete"
+                    >
+                      {todo.isCompleted ? <BiCross color="red"/> : <FaCheck />}
+                    </button>
                   </td>
                 </tr>
               ))
