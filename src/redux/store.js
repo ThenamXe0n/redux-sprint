@@ -11,6 +11,7 @@ const store = configureStore({
     subscription: SubsReducer,
     todo: TodoReducer,
   },
+  devTools:false
 });
 
 export default store;
