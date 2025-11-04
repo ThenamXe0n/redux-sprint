@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 const initialState = {
   todoList: [],
   isloading: true,
   selectedTodo: null,
+  editFormOpen: false,
 };
 
 const todoSlice = createSlice({
@@ -12,7 +14,7 @@ const todoSlice = createSlice({
   reducers: {
     addTaskToTodoList: (state, action) => {
       state.todoList.push(action.payload);
-      alert("task added!");
+      toast.success("task added!");
     },
     deleteTask: (state, action) => {
       state.todoList = state.todoList.filter((item) => {
@@ -33,10 +35,38 @@ const todoSlice = createSlice({
       }
       // state.todoList;
     },
+    openEditForm: (state) => {
+      state.editFormOpen = true;
+    },
+    closeEditForm: (state) => {
+      state.editFormOpen = false;
+      state.selectedTodo = null;
+    },
+    setSelectedTodo: (state, action) => {
+      state.selectedTodo = action.payload;
+    },
+    updateTask: (state, action) => {
+      let idx = state.todoList.findIndex((item) => {
+        return item.id === state.selectedTodo.id;
+      });
+      console.log("found index",idx)
+      state.todoList[idx].taskName = action.payload.taskName;
+      state.todoList[idx].updatedAt = action.payload.updatedAt;
+      toast.success("task edited successfully !");
+      state.editFormOpen = false;
+      state.selectedTodo = null
+    },
   },
 });
 
-export const { addTaskToTodoList, deleteTask, markTaskDone } =
-  todoSlice.actions;
+export const {
+  addTaskToTodoList,
+  deleteTask,
+  markTaskDone,
+  openEditForm,
+  closeEditForm,
+  setSelectedTodo,
+  updateTask
+} = todoSlice.actions;
 
 export default todoSlice.reducer;

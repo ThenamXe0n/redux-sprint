@@ -10,8 +10,7 @@ const store = configureStore({
     user: UserReducer,
     subscription: SubsReducer,
     todo: TodoReducer,
-  },
-  devTools:false
+  }
 });
 
 export default store;
