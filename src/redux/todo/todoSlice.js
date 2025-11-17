@@ -1,3 +1,5 @@
+
+
 import { createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
@@ -13,6 +15,7 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     addTaskToTodoList: (state, action) => {
+
       state.todoList.push(action.payload);
       toast.success("task added!");
     },

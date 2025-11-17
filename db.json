@@ -1,0 +1,22 @@
+{
+  "movie": [
+    {
+      "id": "1762353097725",
+      "movieName": "black panther",
+      "poster": "https://m.media-amazon.com/images/I/91ZWAeRiIVS._SL1500_.jpg",
+      "createdAt": "Wed Nov 05 2025"
+    },
+    {
+      "id": "1762353472061",
+      "movieName": "lagaan",
+      "poster": "https://m.media-amazon.com/images/I/91ZWAeRiIVS._SL1500_.jpg",
+      "createdAt": "Wed Nov 05 2025"
+    },
+    {
+      "id": 1762439935412,
+      "movieName": "nameet mandwalsdfsdfsd",
+      "poster": "https://www.mindcoders.in",
+      "createdAt": "Thu Nov 06 2025"
+    }
+  ]
+}
